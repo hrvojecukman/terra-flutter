@@ -1,4 +1,4 @@
-enum Provider {
+enum TerraProvider {
   fitbit('FITBIT'),
   coros('COROS'),
   dexcom('DEXCOM'),
@@ -33,5 +33,5 @@ enum Provider {
 
   final String key;
 
-  const Provider(this.key);
+  const TerraProvider(this.key);
 }
