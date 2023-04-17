@@ -26,7 +26,7 @@ enum TerraProvider {
   nutracheck('NUTRACHECK'),
   underarmour('UNDERARMOUR'),
   googleFitSDK('GOOGLEFIT'),
-  freestyleLibreSDK('FREESTYLELIBRESDK'),
+  // freestyleLibreSDK('FREESTYLELIBRESDK'),
   omron('OMRON'),
   renpho('RENPHO'),
   whoop('WHOOP');
