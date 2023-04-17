@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-
-String convertToProperIsoFormat(DateTime date){
-      return date.toUtc().toIso8601String();
+String convertToProperIsoFormat(DateTime date) {
+  return date.toUtc().toIso8601String();
 }
 
 // SDK connections
@@ -164,29 +162,29 @@ extension CustomPermissionExtension on CustomPermission {
   }
 }
 
-class SuccessMessage{
+class SuccessMessage {
   final bool? success;
   final String? error;
 
   SuccessMessage(this.success, this.error);
 
   SuccessMessage.fromJson(Map<String, dynamic> json)
-    : success = json["success"],
-    error = json.containsKey('error') ? (json['error']) : null;
+      : success = json["success"],
+        error = json.containsKey('error') ? (json['error']) : null;
 }
 
-class UserId{
+class UserId {
   final bool? success;
   final String? userId;
 
   UserId(this.success, this.userId);
 
   UserId.fromJson(Map<String, dynamic> json)
-    : success = json["success"],
-    userId = json.containsKey('userId') ? (json['userId']) : null;
+      : success = json["success"],
+        userId = json.containsKey('userId') ? (json['userId']) : null;
 }
 
-class DataMessage{
+class DataMessage {
   final bool? success;
   final Map<String, dynamic>? data;
   final String? error;
@@ -194,9 +192,11 @@ class DataMessage{
   DataMessage(this.success, this.data, this.error);
 
   DataMessage.fromJson(Map<String, dynamic> json)
-    : success = json["success"],
-    data = json.containsKey("data") && json["data"] != null ? (jsonDecode(json["data"])) : null,
-    error = json.containsKey('error') ? (json['error']) : null;
+      : success = json["success"],
+        data = json.containsKey("data") && json["data"] != null
+            ? (jsonDecode(json["data"]))
+            : null,
+        error = json.containsKey('error') ? (json['error']) : null;
 }
 
 // Functions bridging
@@ -210,9 +210,9 @@ class TerraFlutter {
   }
 
   static Future<SuccessMessage?> initTerra(
-      String devID,
-      String referenceID) async {
-    return SuccessMessage.fromJson(Map<String, dynamic>.from(await _channel.invokeMethod('initTerra', {
+      String devID, String referenceID) async {
+    return SuccessMessage.fromJson(
+        Map<String, dynamic>.from(await _channel.invokeMethod('initTerra', {
       "devID": devID,
       "referenceID": referenceID,
     })));
@@ -223,7 +223,8 @@ class TerraFlutter {
       String token,
       bool schedulerOn,
       List<CustomPermission> customPermissions) async {
-    return SuccessMessage.fromJson(Map<String, dynamic>.from(await _channel.invokeMethod('initConnection', {
+    return SuccessMessage.fromJson(Map<String, dynamic>.from(
+        await _channel.invokeMethod('initConnection', {
       "connection": connection.connectionString,
       "token": token,
       "schedulerOn": schedulerOn,
@@ -234,16 +235,19 @@ class TerraFlutter {
 
   static Future<UserId?> getUserId(Connection connection) async {
     return UserId.fromJson(Map<String, dynamic>.from(await _channel
-        .invokeMethod('getUserId', {"connection": connection.connectionString})));
+        .invokeMethod(
+            'getUserId', {"connection": connection.connectionString})));
   }
 
-  static Future<bool> isHealthConnectAvailable() async{
+  static Future<bool> isHealthConnectAvailable() async {
     return await _channel.invokeMethod("isHealthConnectAvailable");
   }
-  
+
   static Future<DataMessage?> getActivity(
-      Connection connection, DateTime startDate, DateTime endDate, {bool toWebhook = true} ) async {
-    return DataMessage.fromJson(Map<String, dynamic>.from(await _channel.invokeMethod('getActivity', {
+      Connection connection, DateTime startDate, DateTime endDate,
+      {bool toWebhook = true}) async {
+    return DataMessage.fromJson(
+        Map<String, dynamic>.from(await _channel.invokeMethod('getActivity', {
       "connection": connection.connectionString,
       "startDate": convertToProperIsoFormat(startDate),
       "endDate": convertToProperIsoFormat(endDate),
@@ -251,14 +255,20 @@ class TerraFlutter {
     })));
   }
 
-  static Future<DataMessage?> getAthlete(Connection connection, {bool toWebhook = true}) async {
-    return DataMessage.fromJson(Map<String, dynamic>.from(await _channel.invokeMethod(
-        'getAthlete', {"connection": connection.connectionString, "toWebhook": toWebhook})));
+  static Future<DataMessage?> getAthlete(Connection connection,
+      {bool toWebhook = true}) async {
+    return DataMessage.fromJson(Map<String, dynamic>.from(await _channel
+        .invokeMethod('getAthlete', {
+      "connection": connection.connectionString,
+      "toWebhook": toWebhook
+    })));
   }
 
   static Future<DataMessage?> getBody(
-      Connection connection, DateTime startDate, DateTime endDate, {bool toWebhook = true}) async {
-    return DataMessage.fromJson(Map<String, dynamic>.from(await _channel.invokeMethod('getBody', {
+      Connection connection, DateTime startDate, DateTime endDate,
+      {bool toWebhook = true}) async {
+    return DataMessage.fromJson(
+        Map<String, dynamic>.from(await _channel.invokeMethod('getBody', {
       "connection": connection.connectionString,
       "startDate": convertToProperIsoFormat(startDate),
       "endDate": convertToProperIsoFormat(endDate),
@@ -267,8 +277,10 @@ class TerraFlutter {
   }
 
   static Future<DataMessage?> getDaily(
-      Connection connection, DateTime startDate, DateTime endDate, {bool toWebhook = true}) async {
-    return DataMessage.fromJson(Map<String, dynamic>.from(await _channel.invokeMethod('getDaily', {
+      Connection connection, DateTime startDate, DateTime endDate,
+      {bool toWebhook = true}) async {
+    return DataMessage.fromJson(
+        Map<String, dynamic>.from(await _channel.invokeMethod('getDaily', {
       "connection": connection.connectionString,
       "startDate": convertToProperIsoFormat(startDate),
       "endDate": convertToProperIsoFormat(endDate),
@@ -276,9 +288,11 @@ class TerraFlutter {
     })));
   }
 
-    static Future<DataMessage?> getMenstruation(
-      Connection connection, DateTime startDate, DateTime endDate, {bool toWebhook = true}) async {
-    return DataMessage.fromJson(Map<String, dynamic>.from(await _channel.invokeMethod('getMenstruation', {
+  static Future<DataMessage?> getMenstruation(
+      Connection connection, DateTime startDate, DateTime endDate,
+      {bool toWebhook = true}) async {
+    return DataMessage.fromJson(Map<String, dynamic>.from(
+        await _channel.invokeMethod('getMenstruation', {
       "connection": connection.connectionString,
       "startDate": convertToProperIsoFormat(startDate),
       "endDate": convertToProperIsoFormat(endDate),
@@ -287,8 +301,10 @@ class TerraFlutter {
   }
 
   static Future<DataMessage?> getNutrition(
-      Connection connection, DateTime startDate, DateTime endDate, {bool toWebhook = true}) async {
-    return DataMessage.fromJson(Map<String, dynamic>.from(await _channel.invokeMethod('getNutrition', {
+      Connection connection, DateTime startDate, DateTime endDate,
+      {bool toWebhook = true}) async {
+    return DataMessage.fromJson(
+        Map<String, dynamic>.from(await _channel.invokeMethod('getNutrition', {
       "connection": connection.connectionString,
       "startDate": convertToProperIsoFormat(startDate),
       "endDate": convertToProperIsoFormat(endDate),
@@ -297,8 +313,10 @@ class TerraFlutter {
   }
 
   static Future<DataMessage?> getSleep(
-      Connection connection, DateTime startDate, DateTime endDate, {bool toWebhook = true}) async {
-    return DataMessage.fromJson(Map<String, dynamic>.from(await _channel.invokeMethod('getSleep', {
+      Connection connection, DateTime startDate, DateTime endDate,
+      {bool toWebhook = true}) async {
+    return DataMessage.fromJson(
+        Map<String, dynamic>.from(await _channel.invokeMethod('getSleep', {
       "connection": connection.connectionString,
       "startDate": convertToProperIsoFormat(startDate),
       "endDate": convertToProperIsoFormat(endDate),
@@ -307,7 +325,8 @@ class TerraFlutter {
   }
 
   static Future<String?> activateGlucoseSensor() async {
-    final String? success = await _channel.invokeMethod('activateGlucoseSensor');
+    final String? success =
+        await _channel.invokeMethod('activateGlucoseSensor');
     return success;
   }
 
