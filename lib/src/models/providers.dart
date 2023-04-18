@@ -16,7 +16,7 @@ enum TerraProvider {
   // pul('PUL'),
   appleHealthKit('APPLE'),
   samsung('SAMSUNG'),
-  wearOS('WEAROS'),
+  // wearOS('WEAROS'),
   freestyleLibre('FREESTYLELIBRE'),
   tempoFit('TEMPO'),
   iFit('IFIT'),
